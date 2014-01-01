@@ -1,0 +1,23 @@
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10                                                            
+screen 1
+
+altscreen on
+#bindkey ^[^[[5~ prev
+#bindkey ^[^[[6~ next
+#bindkey ^[0 select 0
+#bindkey ^[1 select 1
+#bindkey ^[2 select 2
+#bindkey ^[3 select 3
+#bindkey ^[4 select 4
+#bindkey ^[5 select 5
+#bindkey ^[6 select 6
+#bindkey ^[7 select 7
+#bindkey ^[8 select 8
+#bindkey ^[9 select 9
+hardstatus alwayslastline "%{= bW}%-w%{= Wb}%n %t%{= bW}%+w"
+shelltitle ""
+#screen 1
+#
+

@@ -1,0 +1,44 @@
+[extensions]
+hgext.convert=
+
+[ui]
+merge = kdiff3
+username = Vladimir Berezhnoy <non7top@gmail.com>
+
+[merge-tools]
+kdiff3.args = $base $local $other -o $output
+kdiff3.checkchanged = true
+kdiff3.gui = true
+kdiff3.premerge = False
+
+[extensions]
+hgext.graphlog = 
+#alias =
+color =
+hgk =
+pager =
+gpg =
+
+[alias]
+slog = log --template '{date|shortdate} [{rev}:{node|short}] {author|person}: {desc|firstline} ({files})\n' -l 10
+sin = incoming --template '{date|shortdate} [{rev}:{node|short}] {author|person}: {desc|firstline}\n'
+sout = outgoing --template '{date|shortdate} [{rev}:{node|short}] {author|person}: {desc|firstline}\n'
+sheads = heads --template '{date|shortdate} [{rev}:{node|short}] {author|person}: {desc|firstline}\n'
+sglog = glog --template '[{rev}:{node|short}] by {author|person} \n{desc|fill68}\n\n'
+
+[color]
+diff.diffline = bold
+diff.extended = cyan bold
+diff.file_a = red bold
+diff.file_b = green bold
+diff.hunk = magenta
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = bold red_background
+
+[pager]
+ignore = version, help, update, push, pull, merge, fetch, convert, clone, record, crecord, grep, sin, sout, slog, status, add, commit
+
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
