@@ -1,0 +1,18 @@
+[user]
+	name = Vladimir Berezhnoy
+	email = non7top@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+[pack]
+	threads = 0
+[diff]
+	renamelimit = 0
+	tool = kdiff3
+[cola]
+	savewindowsettings = true
+	geometry = 1672x945+0,48
+[merge]
+	tool = kdiff3
