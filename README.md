@@ -5,17 +5,7 @@ Prerequisites
 -------------
 
 * Git (1.8+ recommended)
-* Mercurial (1.6+ recommended)
 * Vim (7.3+ recommended)
-* Tree
-* Pygments
-* xmllint
-
-Optional, but recommended:
-
-* [rbenv](http://rbenv.org) or [RVM](http://rvm.beginrescueend.com/)
-* [Homebrew](http://mxcl.github.com/homebrew/) (OS X only)
-
 
 Bootstrapper
 ------------
@@ -24,7 +14,7 @@ The bootstrapper will back up all your existing files before it installs
 anything new, it'll also warn you if a dependency isn't met.
 
 ``` bash-session
-$ bash < <( curl https://raw.github.com/gf3/dotfiles/master/bootstrap.sh )
+$ bash < <( curl https://raw.github.com/non7top/dotfiles/master/bootstrap.sh )
 ```
 
 Don't worry, all your old files will be backed up!
@@ -156,16 +146,13 @@ and [.bash_prompt](https://github.com/gf3/dotfiles/blob/master/.bash_prompt).
 Aliases
 -------
 
-Check out [.aliases](https://github.com/gf3/dotfiles/blob/master/.aliases)
+Check out [.aliases](https://github.com/non7top/dotfiles/blob/master/.aliases)
 
 
 Scripts
 -------
 
 Additional useful scripts bundled:
-
-* ack
-* bookmarklet
 
 
 Fonts
@@ -195,20 +182,4 @@ Additional scripts (see [.scripts](https://github.com/gf3/dotfiles/tree/master/.
 * git-show-merges
 * git-wtf
 
-
-Configurations
-==============
-
-Sensible configurations exist for:
-
-* Ack
-* Awesome Print
-* RubyGems
-* Git
-* IRB
-* TMUX
-* Vim
-* GVim / MacVim
-
-...and more!
 
