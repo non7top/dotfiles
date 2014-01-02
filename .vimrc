@@ -123,3 +123,9 @@ au BufRead,BufNewFile *.tpl set filetype=smarty
 "set expandtab
 "set softtabstop=4
 "set shiftwidth=4
+"
+"http://vim.wikia.com/wiki/Toggle_auto-indenting_for_code_paste
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
