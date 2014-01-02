@@ -95,7 +95,7 @@ done
 
 if [ $not_met -gt 0 ]; then
   error "$not_met dependencies not met!"
-  #exit 1
+  exit 1
 fi
 
 
