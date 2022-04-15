@@ -1,0 +1,87 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+test -f $HOME/spm/local.env && source $HOME/spm/local.env
+eval "$(chef shell-init bash)"
+
+# PS1 Prompt with exit code. Skips 130 exit code, which is for Ctrl+C, i.e. Ctrl+C clears exit code
+PS1error="$( ret=$? ; test $ret -gt 0 -a $ret -ne 130 && echo "\[\e[41;93m\][$ret]\[\e[0m\] " )"
+
+source ~/.knife-block-prompt.sh
+source ~/.git-prompt.sh
+source ~/.bash-prompt-okta-expiration.sh
+
+function app_prompt_k8s() {
+  if [ ! -z $KUBECONFIG ]; then
+      # context namespace
+      k8s_cluster_name=$(kubectl config view --minify --output 'jsonpath={.contexts[0].name}'|sed -e 's/eks_k8s-//' -e 's/-eks-cluster//')
+      k8s_prompt="$(echo -e "\e[34m")$k8s_cluster_name${RESET}"
+      k8s_ns=$(kubectl config view --minify --output 'jsonpath={..namespace}')
+      if [ ! -z $k8s_ns ]; then
+          k8s_prompt="${k8s_prompt}$(echo -e "\e[44m")[${k8s_ns}]${RESET}"
+      fi
+      echo -e "$k8s_prompt"
+  fi
+  
+}
+
+function app_prompt() {
+    APP_PROMPT=""
+    RESET="$(echo -e "\e[0m")"
+
+    # Prompt for k8s
+    if [ ! -z $KUBECONFIG ]; then
+        APP_PROMPT="${APP_PROMPT}$(app_prompt_k8s) "
+    fi
+
+    echo "$APP_PROMPT${RESET}"
+}
+
+
+#PS1='$(_knife-block_ps1) n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n$ '
+#PS1='\[\e[1;97m\]${AWS_PROFILE}\[\e[0;39m\] \[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n$ '
+PS1='$( ret=$? ; test $ret -gt 0 -a $ret -ne 130 && echo "\[\e[41;93m\][$ret]\[\e[0m\] " )$(app_prompt)\[\e[1;93m\]${AWS_PROFILE}\[\e[0;39m\] $(knife_block_prompt) $(okta_expiration_prompt) \[\e[1;37m\]|-- \[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n$ '
+
+export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+
+HISTFILESIZE=25000
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
+export EDITOR=vim
+
+if [[ -d "$HOME/.nvm" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
+if [[ -d "$HOME/perl5" ]]; then
+  export PERL_LOCAL_LIB_ROOT="$PERL_LOCAL_LIB_ROOT:$HOME/perl5";
+  export PERL_MB_OPT="--install_base $HOME/perl5";
+  export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
+  export PERL5LIB="$HOME/perl5/lib/perl5:$PERL5LIB";
+  export PATH="$HOME/perl5/bin:$PATH";
+  eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+fi
+
+export PATH="$HOME/.java/bin:$PATH"
+
+#OktaAWSCLI
+if [[ -f "$HOME/.okta/bash_functions" ]]; then
+    . "$HOME/.okta/bash_functions"
+fi
+if [[ -d "$HOME/.okta/bin" && ":$PATH:" != *":$HOME/.okta/bin:"* ]]; then
+    PATH="$HOME/.okta/bin:$PATH"
+fi
+
+export AWS_DEFAULT_REGION=us-east-1
