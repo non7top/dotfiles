@@ -6,3 +6,4 @@ ignore = [
     'LICENSE',
     'README.rst'
     ]
+prefix = .
