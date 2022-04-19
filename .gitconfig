@@ -1,0 +1,35 @@
+[user]
+  email = vladimir.berezhnoy@hmhco.com
+  name = "Berezhnoy, Vladimir"
+  signingkey = FF00FD56A7A8DD81
+
+[push]
+  default = matching
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+
+[color "status"]
+  added = green
+  changed = red bold
+  untracked = magenta bold
+
+[color "branch"]
+  remote = yellow
+
+[commit]
+  gpgsign = true
+
+[alias]
+  cm = !git checkout $(git rev-parse --abbrev-ref origin/HEAD|sed -e "s#origin/##")
+
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+
+[remote "origin"]
+  tagopt = --tags
