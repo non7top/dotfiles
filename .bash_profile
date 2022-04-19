@@ -9,7 +9,7 @@ fi
 export HISTSIZE=999999
 export HISTFILESIZE=999999
 
-PATH=$HOME/.local/bin:$HOME/bin:$PATH
+PATH=$HOME/.local/bin:$HOME/bin:$PATH:$HOME/.bin
 
 export PATH
 export PATH="$HOME/.tfenv/bin:$PATH"
