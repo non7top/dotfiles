@@ -24,7 +24,13 @@
   gpgsign = true
 
 [alias]
-  cm = !git checkout $(git rev-parse --abbrev-ref origin/HEAD|sed -e "s#origin/##")
+  cd = !git checkout $(git sd)
+  sd = !git rev-parse --abbrev-ref origin/HEAD|sed -e "s#origin/##"
+  diffc = diff --cached
+  pu = pull upstream HEAD --tags
+  root = rev-parse --show-toplevel
+  cdr = !cd $( git root )
+  pushf = push -f origin HEAD
 
 [pager]
   log = diff-highlight | less
@@ -33,3 +39,7 @@
 
 [remote "origin"]
   tagopt = --tags
+[stash]
+	showIncludeUntracked = true
+[core]
+	hooksPath = /home/hmh/.git/hooks/

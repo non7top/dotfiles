@@ -1,6 +1,6 @@
-echo "git checkout master
-git pull --rebase upstream master
+echo "git checkout $(git sd)
+git pull --rebase upstream $(git sd)
 # this will delete all your local changes to master
-git reset --hard upstream/master
+git reset --hard upstream/$(git sd)
 # take care, this will delete all your changes on your forked master
-git push origin master --force"
+git push origin $(git sd) --force"
