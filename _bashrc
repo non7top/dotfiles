@@ -10,10 +10,23 @@ fi
 
 # User specific aliases and functions
 test -f $HOME/spm/local.env && source $HOME/spm/local.env
-eval "$(chef shell-init bash)"
+#eval "$(chef shell-init bash)"
 
 # PS1 Prompt with exit code. Skips 130 exit code, which is for Ctrl+C, i.e. Ctrl+C clears exit code
 PS1error="$( ret=$? ; test $ret -gt 0 -a $ret -ne 130 && echo "\[\e[41;93m\][$ret]\[\e[0m\] " )"
+
+if [ -d $HOME/.local_env ]; then
+    for i in $HOME/.local_env/*.env ; do
+        if [ -r "$i" ]; then
+            if [ "${-#*i}" != "$-" ]; then
+                . "$i"
+            else
+                . "$i" >/dev/null
+            fi
+        fi
+    done
+fi
+
 
 source ~/.knife-block-prompt.sh
 source ~/.git-prompt.sh
