@@ -11,7 +11,10 @@ export HISTFILESIZE=999999
 
 PATH=$HOME/.local/bin:$HOME/bin:$PATH:$HOME/.bin
 
-export PATH
 export PATH="$HOME/.tfenv/bin:$PATH"
+export PATH="${PATH}:${HOME}/.krew/bin"
+export PATH
+
+alias gcd='cd $(git root)'
 
 script /dev/null
