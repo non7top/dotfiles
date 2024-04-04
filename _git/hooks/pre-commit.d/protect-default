@@ -1,0 +1,12 @@
+#!/bin/bash
+# prevent commit to local master branch
+# https://gist.github.com/aaronhoffman/ffbfd36928f9336be2436cffe39feaec
+
+curr_branch=$(git symbolic-ref HEAD|sed -e 's#refs/heads/##')
+def_branch=$(git sd)
+if [ "x$curr_branch" = "x$def_branch" ]; then
+    echo "pre-commit hook: Can not commit to the local default branch."
+    exit 1
+fi
+
+exit 0

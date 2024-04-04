@@ -35,6 +35,8 @@ VAMActivate github:godlygeek/tabular
 VAMActivate github:vim-python/python-syntax
 VAMActivate github:andoriyu/salt-vim
 VAMActivate github:elzr/vim-json
+VAMActivate github:rhysd/conflict-marker.vim
+" VAMActivate github:airblade/vim-gitgutter
 
 
 syntax on
@@ -278,3 +280,9 @@ set vb t_vb=
 
 " Disable concealing quotes in vim-json plugin
 let g:vim_json_syntax_conceal = 0
+
+
+" fix yaml indentation jumps
+" https://stackoverflow.com/a/37488992
+filetype plugin indent on
+autocmd FileType yml,yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
