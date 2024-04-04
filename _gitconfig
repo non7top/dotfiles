@@ -1,7 +1,5 @@
-[user]
-  email = vladimir.berezhnoy@hmhco.com
-  name = "Berezhnoy, Vladimir"
-  signingkey = FF00FD56A7A8DD81
+[include]
+      path = ~/.gitconfig.local
 
 [push]
   default = matching
