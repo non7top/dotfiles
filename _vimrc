@@ -36,6 +36,7 @@ VAMActivate github:vim-python/python-syntax
 VAMActivate github:andoriyu/salt-vim
 VAMActivate github:elzr/vim-json
 VAMActivate github:rhysd/conflict-marker.vim
+VAMActivate github:justinmk/vim-matchparenalways
 " VAMActivate github:airblade/vim-gitgutter
 
 
@@ -286,3 +287,47 @@ let g:vim_json_syntax_conceal = 0
 " https://stackoverflow.com/a/37488992
 filetype plugin indent on
 autocmd FileType yml,yaml setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>
+autocmd FileType sh,shell setlocal ts=4 sts=4 sw=4 expandtab
+
+"syntax enable
+"set smartindent
+"set tabstop=4
+"set shiftwidth=4
+"set expandtab
+"autocmd FileType javascript set tabstop=2|set shiftwidth=2|set expandtab
+"autocmd FileType sh set tabstop=4|set shiftwidth=4|set expandtab
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
+autocmd FileType sh,shell set tabstop=4|set shiftwidth=4|set expandtab
+
+" https://stackoverflow.com/a/15459337
+function ExtendedHome()
+    let column = col('.')
+    normal! ^
+    if column == col('.')
+        normal! 0
+    endif
+endfunction
+noremap <silent> <Home> :call ExtendedHome()<CR>
+inoremap <silent> <Home> <C-O>:call ExtendedHome()<CR>
+
+
+" https://stackoverflow.com/a/73129790 move between visible lines, not real
+" lines
+nnoremap <Up> gk
+nnoremap gk k
+nnoremap <Down> gj
+nnoremap gj j
+
+" https://stackoverflow.com/a/982252
+set scrolloff=3 " Keep 3 lines below and above the cursor
+
+highlight MatchParen ctermfg=black ctermbg=159 gui=underline
+" term=underline cterm=underline
