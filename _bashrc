@@ -101,3 +101,7 @@ export AWS_DEFAULT_REGION=us-east-1
 
 # https://asdf-vm.com/guide/getting-started.html
 . "$HOME/.asdf/asdf.sh"
+
+function jsonArrayToTable(){
+     jq -r '(.[0] | ([keys[] | .] |(., map(length*"-")))), (.[] | ([keys[] as $k | .[$k]])) | @tsv' | column -t -s $'\t'
+}
