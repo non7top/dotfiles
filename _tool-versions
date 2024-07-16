@@ -1,0 +1,8 @@
+helmfile 0.162.0
+helm 3.14.2
+kubectl 1.29.6
+helm-diff 3.9.4
+vault 1.15.6+ent
+tflint 0.50.3
+eksctl 0.186.0
+awscli 2.17.13

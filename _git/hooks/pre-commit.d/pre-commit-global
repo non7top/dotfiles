@@ -3,8 +3,8 @@
 # ID: 138fd403232d2ddd5efb44317e38bf03
 
 # start templated
-INSTALL_PYTHON=/home/hmh/local/bin/python3.10
-ARGS=(hook-impl --config=/home/hmh/.git/.pre-commit-config.yaml --hook-type=pre-commit --skip-on-missing-config)
+INSTALL_PYTHON=/home/hmh/.local/pipx/venvs/pre-commit/bin/python
+ARGS=(hook-impl --config=/home/hmh/.git/.pre-commit-config.yaml --hook-type=pre-commit)
 # end templated
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
@@ -13,7 +13,7 @@ ARGS+=(--hook-dir "$HERE" -- "$@")
 if [ -x "$INSTALL_PYTHON" ]; then
     exec "$INSTALL_PYTHON" -mpre_commit "${ARGS[@]}"
 elif command -v pre-commit > /dev/null; then
-    exec pre-commit --all-files "${ARGS[@]}"
+    exec pre-commit "${ARGS[@]}"
 else
     echo '`pre-commit` not found.  Did you forget to activate your virtualenv?' 1>&2
     exit 1
