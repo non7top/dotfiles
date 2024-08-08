@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# https://gist.github.com/damienrg/411f63a5120206bb887929f4830ad0d0
+# https://gist.github.com/carlos-jenkins/89da9dcf9e0d528ac978311938aade43
+# https://aaron-hoffman.blogspot.com/2017/04/git-protect-local-master-branch-commit-push.html
+
+# Allow multiple hooks.
+#
+# To use it copy this script in "~/.githooks" with the executable bit set. Then and set
+# core.hooksPath to ~/.githooks: 'git config --global core.hooksPath ~/.githooks'.
+# The name of the file, here described with the 'hook-name' placeholder, should be
+# the name of the wanted hook (see man githooks to know available hooks).
+# Then place your scripts with executable bit set in ".git/hooks/hook-name.d/".
+
+ret=0
+
+for file in "${BASH_SOURCE[0]}.d"/*; do
+    "$file" $*
+    code=$?
+    echo -ne "\e[8;36;40m##### GITHOOK:\033[0m ${file} "
+    if [ $code -ne 0 ]; then
+        ret=1
+        echo -en " \e[7;107;31m"
+        echo -n "[ ERROR ]"
+        echo -e "\e[0m"
+    else
+        echo -en " \e[7;107;32m"
+        echo -n "[ OK ]"
+        echo -e "\e[0m"
+    fi
+done
+
+exit $ret
