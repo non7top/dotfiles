@@ -381,6 +381,36 @@ class DotfilesTestCase(unittest.TestCase):
                 os.path.join(self.repository, dotfile),
                 os.path.join(self.homedir, dotfile))
 
+    def test_unprefixed_entry_passthrough(self):
+        """Entries that don't start with the configured prefix must be left
+        alone rather than having a leading character chopped off.
+
+        Regression test for https://github.com/jbernard/dotfiles/issues/32
+        and https://github.com/jbernard/dotfiles/issues/53: with prefix='_'
+        set, a repo entry named 'bin' (no leading underscore) used to be
+        sliced to 'in' and re-dotted to '~/.in' instead of being linked as
+        '~/bin'.
+        """
+
+        touch(os.path.join(self.repository, '_bashrc'))
+        os.mkdir(os.path.join(self.repository, 'bin'))
+        touch(os.path.join(self.repository, 'bin', 'somescript'))
+
+        dotfiles = Dotfiles(
+                homedir=self.homedir, path=self.repository,
+                prefix='_', ignore=[], externals={}, packages=[],
+                dry_run=False)
+
+        dotfiles.sync()
+
+        self.assertPathEqual(
+                os.path.join(self.homedir, '.bashrc'),
+                os.path.join(self.repository, '_bashrc'))
+        self.assertPathEqual(
+                os.path.join(self.homedir, 'bin'),
+                os.path.join(self.repository, 'bin'))
+        self.assertFalse(os.path.exists(os.path.join(self.homedir, '.in')))
+
     @pytest.mark.xfail()
     def test_add_package_file(self):
         """
